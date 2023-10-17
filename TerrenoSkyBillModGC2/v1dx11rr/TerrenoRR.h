@@ -37,6 +37,11 @@ private:
 	ID3D11ShaderResourceView* colorMap2;
 	ID3D11ShaderResourceView* blendMap;
 	ID3D11SamplerState* colorMapSampler;
+	//Test Multitextura
+	ID3D11ShaderResourceView* srvTexture1;
+	ID3D11ShaderResourceView* srvTexture2;
+	ID3D11ShaderResourceView* srvTexture3;
+	ID3D11ShaderResourceView* srvColorMap;
 
 	ID3D11Buffer* viewCB;
 	ID3D11Buffer* projCB;
@@ -244,12 +249,23 @@ public:
 
 		//creamos los indices para hacer el terreno
 		estableceIndices();
-		//crea los accesos de las texturas para los shaders 
+		//crea los accesos de las texturas para los shaders
+		//Pruebas multitextura
+		HRESULT hr = D3DX11CreateShaderResourceViewFromFile(d3dDevice, L"colormapTest.jpg", NULL, NULL, &srvColorMap, NULL);
+		HRESULT hr = D3DX11CreateShaderResourceViewFromFile(d3dDevice, L"vckmabus_2K_Albedo.jpg", 0, 0, &srvTexture1, 0);
+		hr = D3DX11CreateShaderResourceViewFromFile(d3dDevice, L"ugsnfawlw_2K_Albedo.jpg", 0, 0, &srvTexture2, 0);
+		hr = D3DX11CreateShaderResourceViewFromFile(d3dDevice, L"umilae2n_2K_Albedo.jpg", 0, 0, &srvTexture3, 0);
+
 		d3dResult = D3DX11CreateShaderResourceViewFromFile( d3dDevice, diffuseTex, 0, 0, &colorMap, 0 );
 		d3dResult = D3DX11CreateShaderResourceViewFromFile( d3dDevice, L"ugsnfawlw_2K_Albedo.jpg", 0, 0, &colorMap2, 0 );
 		d3dResult = D3DX11CreateShaderResourceViewFromFile( d3dDevice, L"alturas.jpg", 0, 0, &blendMap, 0 );
 
 		if( FAILED( d3dResult ) )
+		{
+			return false;
+		}
+
+		if (FAILED(hr))
 		{
 			return false;
 		}
