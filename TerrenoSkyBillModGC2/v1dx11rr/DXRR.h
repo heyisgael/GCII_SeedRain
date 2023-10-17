@@ -47,6 +47,7 @@ public:
 	// Se agregan dos objetos para modelos nuevos
 	///////////
 	ModeloRR* carro;
+	ModeloRR* Tronco;
 
 	float izqder;
 	float arriaba;
@@ -85,12 +86,13 @@ public:
 		terreno = new TerrenoRR(300, 300, d3dDevice, d3dContext);
 		skydome = new SkyDome(32, 32, 100.0f, &d3dDevice, &d3dContext, L"SkyDome.png");
 		billboard = new BillboardRR(L"Assets/Billboards/fuego-anim.png", L"Assets/Billboards/fuego-anim-normal.png", d3dDevice, d3dContext, 5);
-		model = new ModeloRR(d3dDevice, d3dContext, "Assets/Cofre/Cofre.obj", L"Assets/Cofre/Cofre-color.png", L"Assets/Cofre/Cofre-spec.png", 0, 0);
+		//model = new ModeloRR(d3dDevice, d3dContext, "Assets/Cofre/Cofre.obj", L"Assets/Cofre/Cofre-color.png", L"Assets/Cofre/Cofre-spec.png", 0, 0);
+		
 		///////////
 		// Se inicializan los nuevos modelos
 		///////////
 		carro = new ModeloRR(d3dDevice, d3dContext, "Assets/Auto/Cheep.obj", L"Assets/Auto/Cheep.jpg", L"Assets/Auto/Cheep.jpg", 0, 0);
-
+		Tronco = new ModeloRR(d3dDevice, d3dContext, "Assets/TroncoSeco/model.obj", L"Assets/TroncoSeco/DefaultMaterial_albedo.jpeg", L"Assets/TroncoSeco/DefaultMaterial_AO.jpeg", 20, 0);
 		// Se inicializan las nuevas variables
 		///////////
 		camaraTipo = true;
@@ -309,7 +311,8 @@ public:
 		///////////
 		// Se agregan variables a la función de Draw
 		///////////
-		model->Draw(camara->vista, camara->proyeccion, terreno->Superficie(100, 20), camara->posCam, 10.0f, 0, 'A', 1, false, false);
+		//model->Draw(camara->vista, camara->proyeccion, terreno->Superficie(100, 20), camara->posCam, 10.0f, 0, 'A', 1, false, false);
+		Tronco->Draw(camara->vista, camara->proyeccion, terreno->Superficie(100, 20), camara->posCam, 10.0f, 0, 'A', 1, false, false);
 		///////////
 		// Se utilizan funciones de seteo de variables
 		///////////
