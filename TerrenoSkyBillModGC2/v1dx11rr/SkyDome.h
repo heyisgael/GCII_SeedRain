@@ -197,7 +197,8 @@ public:
 
 		creaIndices();
 
-		d3dResult = D3DX11CreateShaderResourceViewFromFile((*d3dDevice), diffuseTex, 0, 0, &textura, 0);
+		//d3dResult = D3DX11CreateShaderResourceViewFromFile((*d3dDevice), diffuseTex, 0, 0, &textura, 0);
+		d3dResult = D3DX11CreateShaderResourceViewFromFile((*d3dDevice), L"SkyDome2.jpg", 0, 0, &textura, 0);
 
 		if (FAILED(d3dResult))
 		{
