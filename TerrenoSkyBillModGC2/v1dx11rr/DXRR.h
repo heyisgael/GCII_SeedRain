@@ -46,8 +46,10 @@ public:
 	///////////
 	// Se agregan dos objetos para modelos nuevos
 	///////////
-	ModeloRR* carro;
+	ModeloRR* Mariquita;
 	ModeloRR* Tronco;
+	ModeloRR* Girasol;
+	
 
 	float izqder;
 	float arriaba;
@@ -91,8 +93,9 @@ public:
 		///////////
 		// Se inicializan los nuevos modelos
 		///////////
-		carro = new ModeloRR(d3dDevice, d3dContext, "Assets/Auto/Cheep.obj", L"Assets/Auto/Cheep.jpg", L"Assets/Auto/Cheep.jpg", 0, 0);
-		Tronco = new ModeloRR(d3dDevice, d3dContext, "Assets/TroncoSeco/model.obj", L"Assets/TroncoSeco/DefaultMaterial_albedo.jpeg", L"Assets/TroncoSeco/DefaultMaterial_AO.jpeg", 20, 0);
+		Mariquita = new ModeloRR(d3dDevice, d3dContext, "Assets/Mariquita/mariquita2.obj", L"Assets/Mariquita/mariquitaTexture.jpg", L"Assets/Mariquita/mariquitaTexture.jpg", 10, 0);
+		Tronco = new ModeloRR(d3dDevice, d3dContext, "Assets/TroncoSeco/model.obj", L"Assets/TroncoSeco/DefaultMaterial_albedo.jpeg", L"Assets/TroncoSeco/DefaultMaterial_AO.jpg", 20, 0);
+		Girasol = new ModeloRR(d3dDevice, d3dContext, "Assets/Girasol/sunflower.obj", L"Assets/Girasol/sunflower.png", L"Assets/Girasol/sunflower_AO.png", 20, 0);
 		// Se inicializan las nuevas variables
 		///////////
 		camaraTipo = true;
@@ -313,17 +316,18 @@ public:
 		///////////
 		//model->Draw(camara->vista, camara->proyeccion, terreno->Superficie(100, 20), camara->posCam, 10.0f, 0, 'A', 1, false, false);
 		Tronco->Draw(camara->vista, camara->proyeccion, terreno->Superficie(100, 20), camara->posCam, 10.0f, 0, 'A', 1, false, false);
+		Girasol->Draw(camara->vista, camara->proyeccion, terreno->Superficie(130, 20), camara->posCam, 10.0f, 0, 'A', 0.025, false, false);
 		///////////
 		// Se utilizan funciones de seteo de variables
 		///////////
-		carro->setPosX(camara->hdveo.x);
-		carro->setPosZ(camara->hdveo.z);
+		Mariquita->setPosX(camara->hdveo.x);
+		Mariquita->setPosZ(camara->hdveo.z);
 		///////////
 		// Se manda a dibujar el objeto del carro
 		///////////
-		carro->Draw(camara->vista, camara->proyeccion
-			, terreno->Superficie(carro->getPosX(), carro->getPosZ()) + 2.5
-			, camara->posCam, 10.0f, rotCam + XM_PI, 'Y', 1, camaraTipo, true);
+		Mariquita->Draw(camara->vista, camara->proyeccion
+			, terreno->Superficie(Mariquita->getPosX(), Mariquita->getPosZ()) + 2.5
+			, camara->posCam, 10.0f, rotCam + XM_PI, 'Y', 0.25, camaraTipo, true);
 		
 		swapChain->Present(1, 0);
 	}
