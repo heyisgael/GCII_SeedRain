@@ -35,6 +35,7 @@ private:
 
 	ID3D11ShaderResourceView* colorMap;
 	ID3D11ShaderResourceView* colorMap2;
+	ID3D11ShaderResourceView* colorMap3;
 	ID3D11ShaderResourceView* blendMap;
 	ID3D11SamplerState* colorMapSampler;
 	//Test Multitextura
@@ -72,7 +73,7 @@ public:
 		this->ancho = ancho;
 		this->alto = alto;
 		//aqui cargamos las texturas de alturas y el cesped
-		CargaParametros(L"vckmabus_2K_Albedo.jpg", L"alturas.jpg", 100.0f);
+		CargaParametros(L"dirtTexture.jpg", L"alturas.jpg", 100.0f);
 	}
 
 	~TerrenoRR()
@@ -251,13 +252,9 @@ public:
 		estableceIndices();
 		//crea los accesos de las texturas para los shaders
 		//Pruebas multitextura
-		HRESULT hr = D3DX11CreateShaderResourceViewFromFile(d3dDevice, L"colormapTest.jpg", NULL, NULL, &srvColorMap, NULL);
-		HRESULT hr = D3DX11CreateShaderResourceViewFromFile(d3dDevice, L"vckmabus_2K_Albedo.jpg", 0, 0, &srvTexture1, 0);
-		hr = D3DX11CreateShaderResourceViewFromFile(d3dDevice, L"ugsnfawlw_2K_Albedo.jpg", 0, 0, &srvTexture2, 0);
-		hr = D3DX11CreateShaderResourceViewFromFile(d3dDevice, L"umilae2n_2K_Albedo.jpg", 0, 0, &srvTexture3, 0);
-
 		d3dResult = D3DX11CreateShaderResourceViewFromFile( d3dDevice, diffuseTex, 0, 0, &colorMap, 0 );
-		d3dResult = D3DX11CreateShaderResourceViewFromFile( d3dDevice, L"ugsnfawlw_2K_Albedo.jpg", 0, 0, &colorMap2, 0 );
+		d3dResult = D3DX11CreateShaderResourceViewFromFile(d3dDevice, L"grassTexture.jpg", 0, 0, &colorMap2, 0);
+		d3dResult = D3DX11CreateShaderResourceViewFromFile( d3dDevice, L"dirtTexture.jpg", 0, 0, &colorMap3, 0 );
 		d3dResult = D3DX11CreateShaderResourceViewFromFile( d3dDevice, L"alturas.jpg", 0, 0, &blendMap, 0 );
 
 		if( FAILED( d3dResult ) )
@@ -265,10 +262,6 @@ public:
 			return false;
 		}
 
-		if (FAILED(hr))
-		{
-			return false;
-		}
 		//aqui creamos el sampler
 		D3D11_SAMPLER_DESC colorMapDesc;
 		ZeroMemory( &colorMapDesc, sizeof(colorMapDesc) );
@@ -404,6 +397,7 @@ public:
 		//pasa lo sbuffers al shader
 		d3dContext->PSSetShaderResources( 0, 1, &colorMap );
 		d3dContext->PSSetShaderResources( 1, 1, &colorMap2 );
+		d3dContext->PSSetShaderResources(2, 1, &colorMap3);
 		d3dContext->PSSetShaderResources( 2, 1, &blendMap );
 		d3dContext->PSSetSamplers( 0, 1, &colorMapSampler );
 

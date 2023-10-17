@@ -1,5 +1,6 @@
 Texture2D colorMap : register(t0);
 Texture2D colorMap2 : register(t1);
+Texture2D colorMap3 : register(t3);
 Texture2D blendMap : register(t2);
 SamplerState colorSampler : register(s0);
 
@@ -22,6 +23,7 @@ struct VS_Input
 {
 	float4 pos : POSITION;
 	float2 tex0 : TEXCOORD0;
+	float2 tex1 : TEXCOORD0;
 	float2 blendTex : TEXCOORD1;
 	float3 normal : NORMAL0;
 	float3 tangente : NORMAL1;
@@ -62,8 +64,10 @@ float4 PS_Main(PS_Input pix) : SV_TARGET
 
 	float4 text = colorMap.Sample(colorSampler, pix.tex0);
 	float4 text2 = colorMap2.Sample(colorSampler, pix.tex0);
+	float4 text3 = colorMap3.Sample(colorSampler, pix.tex0);
 	float4 alphaBlend = blendMap.Sample(colorSampler, pix.blendTex);
-	float4 textf = (text * alphaBlend) + ((1.0 - alphaBlend) * text2);
+	float4 textf = (text * alphaBlend) + ((1.0 - alphaBlend) * (text3 + text2));
+	
 
 	float3 DiffuseDirection = float3(0.5f, -1.0f, 0.0f);
 	float4 DiffuseColor = float4(1.0f, 1.0f, 1.0f, 1.0f);
